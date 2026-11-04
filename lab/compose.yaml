@@ -1,0 +1,19 @@
+services:
+  db:
+    image: postgres:17
+    environment:
+      POSTGRES_DB: adr_lab
+      POSTGRES_USER: adr_lab
+      POSTGRES_PASSWORD: adr1234
+    ports:
+      - "127.0.0.1:5432:5432"
+    volumes:
+      - adr_lab_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U adr_lab -d adr_lab"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+volumes:
+  adr_lab_data:
